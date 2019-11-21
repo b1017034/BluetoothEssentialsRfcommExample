@@ -6,4 +6,4 @@ client:
 	$(CC) $(FLAGS) -o rfcomm-client rfcomm-client.c $(LIB)
 
 server:
-	$(CC) $(FLAGS) -o rfcomm-server rfcomm-server.c $(LIB)
+	$(CC) $(FLAGS) -o rfcomm-server rfcomm-server.c $(LIB) -lwiringPi

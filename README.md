@@ -1,7 +1,50 @@
 # BluetoothEssentialsRfcommExample
 Example from the book "Bluetooth essentials for programmers" by Albert S. Huang chapter "3.2 RFCOMM Sockets".
 
+## libraries
+
+```
+sudo apt-get install bluez
+sudo apt-get install bluetooth blueman
+sudo apt-get install libbluetooth-dev
+```
+
+### install WiringPi
+```
+git clone git://git.drogon.net/wiringPi
+cd wiringPi
+./build
+```
+
+## Pairing
+
+```
+sudo bluetoothctl -a
+scan on // start scaning addresses
+scan off
+pair <MAC address>
+trust <MAC address> 
+```
+
+```
+sudo vi /etc/systemd/system/dbus-org.bluez.service
+```
+
+add and change
+
+```
+ExecStart=/usr/lib/bluetooth/bluetotthd
+ExecStartPost=/usr/bin/sdptool add SP
+```
+
 ## Building
+
+```
+vi Makefile
+```
+
+```
+
 
 On one side
 ```

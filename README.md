@@ -43,9 +43,6 @@ ExecStartPost=/usr/bin/sdptool add SP
 vi Makefile
 ```
 
-```
-
-
 On one side
 ```
 make client

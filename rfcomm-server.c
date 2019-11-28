@@ -38,25 +38,19 @@ int main(int argc, char **argv)
     fprintf(stderr, "accepted connection from %s\n", buf);
     memset(buf, 0, sizeof(buf));
 
+    if(wiringPiSetupGpio() == -1) return 0;
+    pinMode(GPIO_PIN,INPUT);
+    int data;
     while(1){
-        if(wiringPiSetupGpio() == -1) break;
         if( digitalRead(GPIO_PIN) == HIGH){
-            // read data from the client
-            //bytes_read = read(client, buf, sizeof(buf));
-            printf("%i\n", digitalRead(GPIO_PIN));
+	    printf( "%d", digitalRead(GPIO_PIN) == HIGH);
+	    data = digitalRead(GPIO_PIN);
             status = write(client, "Hello", 5);
-	    printf("send");
-            /*if( bytes_read > 0 ) {
-                printf("received [%s]\n", buf);
-                printf("%i\n", status);
+	    printf("send:hello status: %d pin:%d HIGH:%d \n",status ,data, HIGH);
 
-            }
-            if( status == 0 ) {
-                status = write(client, "Hello", 5);
-            }
-
-            if( status < 0 ) perror("uh oh");*/
+            if( status < 0 ) break;
         }
+	delay(1000);
     }
 
     //close connection

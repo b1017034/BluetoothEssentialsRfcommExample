@@ -33,7 +33,7 @@ sudo vi /etc/systemd/system/dbus-org.bluez.service
 add and change
 
 ```
-ExecStart=/usr/lib/bluetooth/bluetotthd
+ExecStart=/usr/lib/bluetooth/bluetoothd
 ExecStartPost=/usr/bin/sdptool add SP
 ```
 

@@ -81,3 +81,6 @@ Set the approprite bluetooth address in rfcomm-client.c in line
 char dest[18] = "01:23:45:67:89:AB";
 ```
 Server must be run prior to client.
+
+## reference
+https://qiita.com/akihiro01051/items/2f8336985f15f8d1b131

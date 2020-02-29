@@ -77,6 +77,8 @@ int main(int argc, char **argv)
 
             if( status < 0 ) break;
         }
+
+        sleep(1000);
     }
 
     //close connection

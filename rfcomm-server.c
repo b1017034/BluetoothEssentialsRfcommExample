@@ -45,7 +45,7 @@ int main(int argc, char **argv)
     while(1){
 
         if( digitalRead(GPIO_PIN) == HIGH){
-            char msg[5] = "Hello"
+            char msg[5] = "Hello";
 
             //測距センサーのレスポンス確認
             //printf( "%d", digitalRead(GPIO_PIN) == HIGH);

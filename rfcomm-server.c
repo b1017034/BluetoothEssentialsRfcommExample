@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <sys/socket.h>
+#include <sys/ioctl.h>
 #include <bluetooth/bluetooth.h>
 #include <bluetooth/rfcomm.h>
 #include <wiringPi.h>
@@ -12,7 +13,7 @@ int main(int argc, char **argv)
     //struct sockaddr_rc loc_addr = {00:1B:DC:04:AE:D7}, rem_addr = {44:d4:e0:c8:45:11};
     struct sockaddr_rc loc_addr = { 0 }, rem_addr = { 0 };
     char buf[1024] = { 0 };
-    int s, client, bytes_read, status;
+    int s, client, bytes_read, status, val;
     socklen_t opt = sizeof(rem_addr);
     int ch = 1 < argc ? atoi(argv[1]) : 1;
     printf("channel [%d]\n",ch);
@@ -43,6 +44,15 @@ int main(int argc, char **argv)
     // GPIO_PINをインプットで使用
     pinMode(GPIO_PIN,INPUT);
 
+
+    /*
+      val = 0　ブロッキングモード
+      val = 1　ノンブロッキン
+      初期設定はブロッキングモードです。
+    */
+    val = 1;
+    ioctl(s, FIONBIO, &val);
+
     int data;
     while(1){
 
@@ -57,10 +67,10 @@ int main(int argc, char **argv)
             printf("send:%s status: %d\n" ,msg ,status);
 
             // read data from the client
-            bytes_read = read(client, buf, sizeof(buf));
+            bytes_read = recv(client, buf, sizeof(buf), 0);
 
             printf("read [%i]\n", bytes_read );
-            
+
             if (bytes_read > 0) {
                 printf("received [%s]\n", buf);
             }

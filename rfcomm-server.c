@@ -38,19 +38,28 @@ int main(int argc, char **argv)
     fprintf(stderr, "accepted connection from %s\n", buf);
     memset(buf, 0, sizeof(buf));
 
+    // GPIO使えるか確認
     if(wiringPiSetupGpio() == -1) return 0;
+    // GPIO_PINをインプットで使用
     pinMode(GPIO_PIN,INPUT);
+
     int data;
     while(1){
+
         if( digitalRead(GPIO_PIN) == HIGH){
-	    printf( "%d", digitalRead(GPIO_PIN) == HIGH);
-	    data = digitalRead(GPIO_PIN);
-            status = write(client, "Hello", 5);
-	    printf("send:hello status: %d pin:%d HIGH:%d \n",status ,data, HIGH);
+            char msg[5] = "Hello";
+
+            //測距センサーのレスポンス確認
+            //printf( "%d", digitalRead(GPIO_PIN) == HIGH);
+            data = digitalRead(GPIO_PIN);
+
+            status = write(client, msg, 5);
+
+            printf("%i\n", client);
+            printf("send:%s status: %d pin:%d HIGH:%d \n",msg ,status ,data, HIGH);
 
             if( status < 0 ) break;
         }
-	delay(1000);
     }
 
     //close connection

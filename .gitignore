@@ -34,3 +34,7 @@
 # Binary files
 rfcomm-client
 rfcomm-server
+
+# Clion
+.idea/
+/cmake-build-debug/

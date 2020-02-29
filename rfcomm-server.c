@@ -51,7 +51,7 @@ int main(int argc, char **argv)
       初期設定はブロッキングモードです。
     */
     val = 1;
-    ioctl(s, FIONBIO, &val);
+    ioctl(client, FIONBIO, &val);
 
     int data;
     while(1){

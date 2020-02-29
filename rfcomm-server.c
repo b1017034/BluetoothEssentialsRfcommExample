@@ -47,16 +47,23 @@ int main(int argc, char **argv)
     while(1){
 
         if( digitalRead(GPIO_PIN) == HIGH){
-            char msg[5] = "Hello";
+            char msg[] = "Hello";
 
             //測距センサーのレスポンス確認
-            //printf( "%d", digitalRead(GPIO_PIN) == HIGH);
             data = digitalRead(GPIO_PIN);
 
             status = write(client, msg, 5);
 
-            printf("%i\n", client);
-            printf("send:%s status: %d pin:%d HIGH:%d \n",msg ,status ,data, HIGH);
+            printf("send:%s status: %d\n" ,msg ,status);
+
+            // read data from the client
+            bytes_read = read(client, buf, sizeof(buf));
+
+            printf("read [%i]\n", bytes_read );
+            
+            if (bytes_read > 0) {
+                printf("received [%s]\n", buf);
+            }
 
             if( status < 0 ) break;
         }
